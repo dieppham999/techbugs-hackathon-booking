@@ -1,15 +1,17 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ thống Đăng ký và Quản lý Sự kiện Hackathon "TechBugs"</title>
 </head>
+
 <body>
     <header>
         <h3><a href="#home">TechBugs</a></h3>
         <nav>
             <ul>
-                <li><a href="#home" >Trang chủ</a></li>
+                <li><a href="#home">Trang chủ</a></li>
                 <li><a href="#schedule">Lịch trình</a></li>
                 <li><a href="#register">Đăng ký</a></li>
             </ul>
@@ -21,21 +23,28 @@
             <p>Giới thiệu cuộc thi Hackathon.</p>
             <span>
                 Where does it come from?
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature
-                from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of
-                the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33
-                of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise
-                on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
+                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical
+                Latin literature
+                from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+                College in Virginia,
+                looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going
+                through the cites of
+                the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections
+                1.10.32 and 1.10.33
+                of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This
+                book is a treatise
+                on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem
+                ipsum dolor sit
                 amet..", comes from a line in section 1.10.32.
-                
-                The standard chunk of Lorem Ipsum used since 1966 is reproduced below for those interested. Sections 1.10.32 and 1.10.33
-                from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English
+
+                The standard chunk of Lorem Ipsum used since 1966 is reproduced below for those interested. Sections
+                1.10.32 and 1.10.33
+                from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
+                accompanied by English
                 versions from the 1914 translation by H. Rackham.
             </span>
         </section>
-        
-       
+
         <section id="schedule">
             <h2>Lịch trình sự kiện</h2>
 
@@ -155,11 +164,114 @@
 
         <section id="register">
             <h2>Đăng ký đội thi</h2>
-            <form>
-                <!-- Nội dung form -->
+            <p>Sẵn sàng chinh phục Hackathon TechBugs 2026?</p>
+
+            <form id="registration-form" method="post">
+
+                <!-- Thông tin đội thi -->
+                <fieldset>
+                    <legend>Thông tin đội thi</legend>
+
+                    <div class="form-group">
+                        <label for="team-name">Tên đội thi:</label>
+                        <input type="text" id="team-name" name="teamName" placeholder="Nhập tên đội thi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="leader-name">Họ và tên đội trưởng:</label>
+                        <input type="text" id="leader-name" name="leaderName" placeholder="Nhập họ và tên" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email liên hệ:</label>
+                        <input type="email" id="email" name="email" placeholder="team@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mật khẩu:</label>
+                        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" minlength="8"
+                            autocomplete="new-password" required>
+                        <small>Mật khẩu phải có ít nhất 8 ký tự.</small>
+                    </div>
+                </fieldset>
+
+                <!-- Bảng thi đấu -->
+                <fieldset>
+                    <legend>Bảng thi đấu</legend>
+
+                    <div class="form-options">
+                        <label for="track-web">
+                            <input type="radio" id="track-web" name="track" value="web-development" required>
+                            Web Development
+                        </label>
+
+                        <label for="track-ai">
+                            <input type="radio" id="track-ai" name="track" value="ai-data">
+                            AI &amp; Data
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Kỹ năng của đội -->
+                <fieldset>
+                    <legend>Kỹ năng của đội thi</legend>
+
+                    <div class="form-options">
+                        <label for="skill-html">
+                            <input type="checkbox" id="skill-html" name="skills" value="html">
+                            HTML
+                        </label>
+
+                        <label for="skill-css">
+                            <input type="checkbox" id="skill-css" name="skills" value="css">
+                            CSS
+                        </label>
+
+                        <label for="skill-js">
+                            <input type="checkbox" id="skill-js" name="skills" value="javascript">
+                            JavaScript
+                        </label>
+
+                        <label for="skill-java">
+                            <input type="checkbox" id="skill-java" name="skills" value="java">
+                            Java
+                        </label>
+
+                        <label for="skill-python">
+                            <input type="checkbox" id="skill-python" name="skills" value="python">
+                            Python
+                        </label>
+
+                        <label for="skill-database">
+                            <input type="checkbox" id="skill-database" name="skills" value="database">
+                            Database
+                        </label>
+
+                        <label for="skill-uiux">
+                            <input type="checkbox" id="skill-uiux" name="skills" value="uiux">
+                            UI/UX Design
+                        </label>
+
+                        <label for="skill-ai">
+                            <input type="checkbox" id="skill-ai" name="skills" value="ai">
+                            AI / Machine Learning
+                        </label>
+                    </div>
+
+                    <small>Vui lòng chọn ít nhất một kỹ năng.</small>
+                </fieldset>
+
+                <!-- Thông báo xác thực -->
+                <p id="form-message" role="status"></p>
+
+                <!-- Nút đăng ký -->
+                <button type="submit">Đăng ký tham gia</button>
+
             </form>
         </section>
+
     </main>
     <footer></footer>
 </body>
+
 </html>
