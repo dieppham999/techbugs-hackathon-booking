@@ -69,14 +69,14 @@ git commit -m "feat: add registration form"
 
 ## Tiêu chí hoàn thành (Definition of Done)
 
-- [ ] Flowchart tính phí hoàn chỉnh, có cấu trúc lặp và điều kiện.
-- [ ] Pseudo-code kiểm tra mật khẩu, email và phân tích Big O.
-- [ ] Giao diện HTML/CSS hiển thị ổn định, không vỡ bố cục.
-- [ ] Sử dụng đúng Semantic HTML và các thẻ form cần thiết.
-- [ ] Bảng lịch trình 2 ngày có `rowspan` và `colspan`.
-- [ ] Có hai nhánh tính năng và các commit rõ ràng.
-- [ ] Merge thành công, giải thích và demo được cách xử lý conflict.
-- [ ] Push mã nguồn và tài liệu lên GitHub.
+- [x] Flowchart tính phí hoàn chỉnh, có cấu trúc lặp và điều kiện.
+- [x] Pseudo-code kiểm tra mật khẩu, email và phân tích Big O.
+- [x] Giao diện HTML/CSS hiển thị ổn định, không vỡ bố cục.
+- [x] Sử dụng đúng Semantic HTML và các thẻ form cần thiết.
+- [x] Bảng lịch trình 2 ngày có `rowspan` và `colspan`.
+- [x] Có hai nhánh tính năng và các commit rõ ràng.
+- [x] Merge thành công, giải thích và demo được cách xử lý conflict.
+- [x] Push mã nguồn và tài liệu lên GitHub.
 
 ## Ghi chú
 
