@@ -23,20 +23,20 @@
         <section id="home">
             <h1>Hackathon TechBugs 2026</h1>
             <p>Khơi nguồn sáng tạo – Bứt phá công nghệ – Kiến tạo tương lai.</p>
-        
+
             <p>
                 Hackathon TechBugs 2026 là sân chơi công nghệ dành cho
                 những người đam mê lập trình, sáng tạo và giải quyết
                 các bài toán thực tiễn bằng công nghệ.
             </p>
-        
+
             <p>
                 Trong hai ngày tranh tài, các đội thi sẽ cùng nhau
                 phát triển ý tưởng, xây dựng sản phẩm và trình bày
                 giải pháp trước ban giám khảo. Cuộc thi gồm hai bảng
                 thi đấu: Web Development và AI &amp; Data.
             </p>
-        
+
             <p>
                 Đây là cơ hội để bạn nâng cao kỹ năng lập trình,
                 rèn luyện tư duy giải quyết vấn đề, phát triển khả năng
@@ -260,6 +260,66 @@
                     <small>Vui lòng chọn ít nhất một kỹ năng.</small>
                 </fieldset>
 
+                <!-- TB-01: Tính phí đăng ký đội thi -->
+                <fieldset>
+                    <legend>Phí đăng ký đội thi</legend>
+
+                    <!-- Số lượng thành viên -->
+                    <div class="form-group">
+                        <label for="member-count">Số lượng thành viên</label>
+
+                        <input type="number" id="member-count" name="memberCount" min="1" max="10000" step="1" value="1"
+                            required aria-describedby="member-count-error">
+
+                        <span id="member-count-error" class="field-error" aria-live="polite" hidden></span>
+                    </div>
+
+                    <!-- Ưu đãi đăng ký sớm -->
+                    <div class="form-options">
+                        <label for="early-bird">
+                            <input type="checkbox" id="early-bird" name="earlyBird">
+                            Đăng ký Early Bird (giảm 10%)
+                        </label>
+                    </div>
+
+                    <!-- Mã khuyến mãi -->
+                    <div class="form-group">
+                        <label for="promo-code">Mã khuyến mãi</label>
+
+                        <input type="text" id="promo-code" name="promoCode" placeholder="Nhập mã khuyến mãi"
+                            aria-describedby="promo-message">
+
+                        <span id="promo-message" aria-live="polite"></span>
+                    </div>
+
+                    <!-- Kết quả tính phí -->
+                    <div class="fee-summary" aria-live="polite">
+                        <h3>Chi tiết phí đăng ký</h3>
+
+                        <p>
+                            <span>Phí mỗi thành viên</span>
+                            <strong>100.000 VNĐ</strong>
+                        </p>
+
+                        <p>
+                            <span>Phí gốc</span>
+                            <strong id="original-fee">0 VNĐ</strong>
+                        </p>
+
+                        <p>
+                            <span>Tiền giảm giá</span>
+                            <strong id="discount-fee">0 VNĐ</strong>
+                        </p>
+
+                        <hr>
+
+                        <p class="fee-total">
+                            <span>Tổng phí phải trả</span>
+                            <strong id="total-fee">0 VNĐ</strong>
+                        </p>
+                    </div>
+                </fieldset>
+
                 <!-- Thông báo xác thực -->
                 <p id="form-message" role="status"></p>
 
@@ -327,7 +387,7 @@
         </div>
     </footer>
 
-
+    <script src="js/fee-calculation.js" defer></script>
     <script src="js/script.js"></script>
 </body>
 
