@@ -70,17 +70,36 @@ document.addEventListener('DOMContentLoaded', function () {
         { inputs: [email], anchor: email, check: () => !email.value ? 'Vui lòng nhập email.' : (!isValidEmail(email.value) || email.validity.typeMismatch ? 'Email không hợp lệ (ví dụ: team@techbugs.vn).' : '') },
         { inputs: [password], anchor: password, check: () => isValidPassword(password.value) ? '' : 'Mật khẩu phải có ít nhất 8 ký tự.' },
         { inputs: tracks, anchor: tracks[0].closest('.form-options'), check: () => tracks.some(input => input.checked) ? '' : 'Vui lòng chọn bảng thi đấu.' },
-        { inputs: skills, anchor: skills[0].closest('.form-options'), check: () => skills.some(input => input.checked) ? '' : 'Vui lòng chọn ít nhất một kỹ năng.' }
+        { inputs: skills, anchor: skills[0].closest('.form-options'), check: () => skills.some(input => input.checked) ? '' : 'Vui lòng chọn ít nhất một kỹ năng.' },
+        {
+            inputs: [document.getElementById('member-count')],
+            anchor: document.getElementById('member-count'),
+
+            check: () => {
+                const memberCount =
+                    document.getElementById('member-count').valueAsNumber;
+
+                return isValidMemberCount(memberCount)
+                    ? ''
+                    : 'Vui lòng nhập số nguyên từ 1 đến 10.000.';
+            }
+        }
     ];
 
     // Tạo phần tử thông báo ngay sau input hoặc nhóm radio/checkbox.
     fields.forEach(function (field) {
-        const error = document.createElement('span');
+        const errorId = field.inputs[0].id + '-error';
+
+        const existingError = document.getElementById(errorId);
+
+        const error = existingError || document.createElement('span');
         error.id = field.inputs[0].id + '-error';
         error.className = 'field-error';
         error.setAttribute('aria-live', 'polite');
         error.hidden = true;
-        field.anchor.after(error);
+        if (!existingError) {
+            field.anchor.after(error);
+        }
         field.error = error;
         field.touched = false;
 

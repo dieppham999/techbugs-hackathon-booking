@@ -684,3 +684,70 @@ body > footer {
     outline-color: #b42318;
     box-shadow: 0 0 0 2px rgba(180, 35, 24, 0.12);
 }
+
+/* Khung hiển thị chi tiết phí đăng ký */
+.fee-summary {
+    background-color: #eae5d9;
+    border: 1px solid #d4cbbb;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Tiêu đề bảng tính phí */
+.fee-summary h3 {
+    color: #28372c;
+    margin-bottom: 16px;
+}
+
+/* Căn tên khoản phí bên trái, số tiền bên phải */
+.fee-summary p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+/* Đường phân cách trước tổng phí */
+.fee-summary hr {
+    border: none;
+    border-top: 1px solid #c8c0af;
+    margin: 16px 0;
+}
+
+/* Tổng phí phải trả */
+.fee-summary .fee-total {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Làm nổi bật số tiền cuối cùng */
+#total-fee {
+    color: #9c3d28;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* Màu xanh cho khoản tiền được giảm */
+#discount-fee {
+    color: #166534;
+}
+
+/* Thông báo trạng thái mã khuyến mãi */
+#promo-message {
+    display: block;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+/* Mã khuyến mãi hợp lệ */
+#promo-message.success {
+    color: #166534;
+}
+
+/* Mã khuyến mãi không hợp lệ */
+#promo-message.field-error {
+    color: #b42318;
+}
