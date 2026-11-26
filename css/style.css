@@ -1,0 +1,753 @@
+/* TechBugs — giao diện đỏ gạch, lấy cảm hứng từ Ant Design */
+/* Khai báo biến CSS toàn cục để dễ thay đổi theme. */
+:root {
+    --primary: #9c3d28; /* Màu đỏ gạch chủ đạo cho nút, liên kết và trạng thái chọn */
+    --primary-hover: #b04730; /* Màu chủ đạo sáng hơn khi rê chuột */
+    --primary-active: #73301f; /* Màu đỏ đậm khi nhấn hoặc nhấn mạnh nội dung */
+    --primary-bg: #f4e6dc; /* Nền đỏ đất nhạt cho vùng nổi bật */
+    --text: #242924; /* Màu chữ chính */
+    --muted: #575d55; /* Màu chữ phụ */
+    --border: #d2cec3; /* Màu viền các khối và ô nhập */
+    --line: #e5e0d5; /* Màu đường phân cách nhẹ */
+    --surface: #fff; /* Nền trắng của các khối nội dung */
+    --background: #f2efe8; /* Nền trắng kem của toàn trang */
+    --radius: 5px; /* Bán kính bo góc dùng chung */
+    --shadow: none; /* Tắt bóng đổ để giao diện phẳng và tự nhiên */
+}
+
+*, *::before, *::after {
+    box-sizing: border-box; /* Tính cả padding và border vào kích thước phần tử */
+}
+
+html {
+    scroll-behavior: smooth; /* Quy định cách cuộn tới liên kết neo */
+    scroll-padding-top: 88px; /* Chừa khoảng trên khi cuộn tới section, tránh bị header che */
+}
+
+body {
+    margin: 0; /* Bỏ khoảng cách ngoài mặc định */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; /* Chọn họ phông chữ theo thứ tự ưu tiên */
+    font-size: 14px; /* Đặt kích thước chữ */
+    line-height: 1.6; /* Đặt chiều cao dòng để nội dung dễ đọc */
+    color: var(--text); /* Đặt màu chữ */
+    background: var(--background); /* Dùng biến màu nền để đồng bộ giao diện */
+}
+
+h1, h2, h3, p {
+    margin: 0; /* Bỏ khoảng cách ngoài mặc định */
+}
+
+a {
+    color: var(--primary); /* Đặt màu chữ */
+    text-decoration: none; /* Điều chỉnh gạch chân của liên kết */
+    transition: color .2s; /* Tạo chuyển đổi mượt cho các thuộc tính được liệt kê */
+}
+
+/* Áp dụng khi người dùng rê chuột lên phần tử. */
+a:hover {
+    color: var(--primary-hover); /* Đặt màu chữ */
+}
+
+/* Hiển thị dấu hiệu focus rõ ràng khi điều hướng bằng bàn phím. */
+a:focus-visible, button:focus-visible, input:focus-visible {
+    outline: 2px solid var(--primary); /* Đặt hoặc bỏ đường viền ngoài khi focus */
+    outline-offset: 3px; /* Tạo khoảng cách giữa đường viền focus và phần tử */
+}
+
+/* 01. Đầu trang và menu điều hướng */
+/* Chỉ chọn header là con trực tiếp của body. */
+body > header {
+    position: sticky; /* Giữ header ở đầu màn hình khi cuộn tới ngưỡng top */
+    top: 0; /* Đặt vị trí trên cùng cho header sticky */
+    z-index: 10; /* Đưa header lên trên các lớp nội dung có mức xếp chồng thấp hơn */
+    display: flex; /* Dùng Flexbox để bố trí các phần tử con */
+    justify-content: space-between; /* Phân bố các phần tử theo trục chính của Flexbox */
+    align-items: center; /* Căn các phần tử theo trục phụ của Flexbox */
+    gap: 24px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+    min-height: 64px; /* Đặt chiều cao tối thiểu, vẫn cho phép nội dung mở rộng */
+    padding: 0 max(24px, calc((100% - 1160px) / 2)); /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    background: var(--surface); /* Dùng biến màu nền để đồng bộ giao diện */
+    border-bottom: 1px solid var(--line); /* Tạo hoặc bỏ đường viền dưới */
+    box-shadow: var(--shadow); /* Đặt hiệu ứng bóng đổ hoặc vòng sáng focus */
+}
+
+header h3 {
+    font-size: 24px; /* Đặt kích thước chữ */
+    font-weight: 700; /* Đặt độ đậm của chữ */
+    letter-spacing: -.6px; /* Điều chỉnh khoảng cách giữa các ký tự */
+}
+
+header nav ul {
+    display: flex; /* Dùng Flexbox để bố trí các phần tử con */
+    align-items: center; /* Căn các phần tử theo trục phụ của Flexbox */
+    gap: 24px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+    list-style: none; /* Điều chỉnh dấu đầu dòng của danh sách */
+    margin: 0; /* Bỏ khoảng cách ngoài mặc định */
+    padding: 0; /* Bỏ khoảng cách trong mặc định */
+}
+
+header nav a {
+    display: block; /* Hiển thị dạng khối, bắt đầu trên dòng riêng */
+    padding: 20px 4px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    color: var(--text); /* Đặt màu chữ */
+    font-weight: 500; /* Đặt độ đậm của chữ */
+}
+
+/* Áp dụng khi người dùng rê chuột lên phần tử. */
+header nav a:hover {
+    color: var(--primary); /* Đặt màu chữ */
+}
+
+/* Chọn phần tử cuối cùng trong nhóm tương ứng. */
+header nav li:last-child a {
+    background: var(--primary); /* Dùng biến màu nền để đồng bộ giao diện */
+    color: #fff; /* Đặt màu chữ */
+    padding: 7px 18px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    border-radius: 6px; /* Bo tròn các góc phần tử */
+    box-shadow: 0 2px 0 rgba(115,48,31,.08); /* Đặt hiệu ứng bóng đổ hoặc vòng sáng focus */
+}
+
+/* Áp dụng khi người dùng rê chuột lên phần tử. */
+header nav li:last-child a:hover {
+    background: var(--primary-hover); /* Dùng biến màu nền để đồng bộ giao diện */
+}
+
+/* 02. Bố cục chính và phần giới thiệu */
+main {
+    width: min(1160px, calc(100% - 48px)); /* Đặt chiều rộng phần tử */
+    margin: 32px auto 48px; /* Đặt khoảng cách bên ngoài phần tử; auto giúp căn giữa khi có chiều rộng giới hạn */
+}
+
+/* Chỉ định dạng các section cấp trực tiếp trong main. */
+main > section {
+    margin-bottom: 24px; /* Đặt khoảng cách bên dưới */
+    padding: 32px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    background: var(--surface); /* Dùng biến màu nền để đồng bộ giao diện */
+    border: 1px solid var(--line); /* Đặt độ dày, kiểu và màu đường viền */
+    border-radius: var(--radius); /* Bo tròn các góc phần tử */
+    box-shadow: var(--shadow); /* Đặt hiệu ứng bóng đổ hoặc vòng sáng focus */
+}
+
+main > section > h2 {
+    font-size: 24px; /* Đặt kích thước chữ */
+    line-height: 1.35; /* Đặt chiều cao dòng để nội dung dễ đọc */
+    font-weight: 600; /* Đặt độ đậm của chữ */
+    margin-bottom: 24px; /* Đặt khoảng cách bên dưới */
+}
+
+#home {
+    padding: 52px 40px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    background: #eae5d9; /* Đặt màu nền */
+    border-color: #d8c6b6; /* Thay đổi màu đường viền */
+}
+
+#home h1 {
+    font-size: clamp(28px, 4vw, 44px); /* Đặt kích thước chữ */
+    line-height: 1.2; /* Đặt chiều cao dòng để nội dung dễ đọc */
+    letter-spacing: -1px; /* Điều chỉnh khoảng cách giữa các ký tự */
+    color: #73301f; /* Đặt màu chữ */
+    margin-bottom: 16px; /* Đặt khoảng cách bên dưới */
+}
+
+#home > p {
+    font-size: 18px; /* Đặt kích thước chữ */
+    font-weight: 500; /* Đặt độ đậm của chữ */
+    margin-bottom: 16px; /* Đặt khoảng cách bên dưới */
+}
+
+#home > span {
+    display: block; /* Hiển thị dạng khối, bắt đầu trên dòng riêng */
+    max-width: 850px; /* Giới hạn chiều rộng tối đa */
+    color: var(--muted); /* Đặt màu chữ */
+    line-height: 1.85; /* Đặt chiều cao dòng để nội dung dễ đọc */
+}
+
+/* 03. Bảng lịch trình theo phong cách Ant Design */
+#schedule {
+    overflow-x: auto; /* Cho phép cuộn ngang khi nội dung vượt chiều rộng */
+}
+
+#schedule table {
+    width: 100%; /* Chiếm toàn bộ chiều rộng khả dụng của phần tử cha */
+    min-width: 690px; /* Đặt chiều rộng tối thiểu */
+    border-collapse: separate; /* Giữ các đường viền ô bảng riêng biệt để hỗ trợ bo góc */
+    border-spacing: 0; /* Đặt khoảng cách giữa các ô bảng */
+    border: 1px solid var(--line); /* Đặt độ dày, kiểu và màu đường viền */
+    border-radius: var(--radius); /* Bo tròn các góc phần tử */
+    overflow: hidden; /* Kiểm soát nội dung vượt ra ngoài khung */
+    text-align: left; /* Căn nội dung chữ theo chiều ngang */
+}
+
+#schedule caption {
+    padding: 0 0 16px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    color: var(--muted); /* Đặt màu chữ */
+    font-size: 13px; /* Đặt kích thước chữ */
+    font-weight: 600; /* Đặt độ đậm của chữ */
+    text-align: left; /* Căn nội dung chữ theo chiều ngang */
+}
+
+#schedule th, #schedule td {
+    padding: 15px 16px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    border: 0; /* Bỏ đường viền hiện tại */
+    border-bottom: 1px solid var(--line); /* Tạo hoặc bỏ đường viền dưới */
+    vertical-align: middle; /* Căn nội dung ô bảng theo chiều dọc */
+}
+
+#schedule thead th {
+    background: #f7f5f0; /* Đặt màu nền */
+    font-weight: 600; /* Đặt độ đậm của chữ */
+}
+
+/* Chọn phần tử cuối cùng trong nhóm tương ứng. */
+#schedule thead th:not(:last-child) {
+    border-right: 1px solid var(--line); /* Tạo đường viền bên phải */
+}
+
+/* Chọn các ô bảng được gộp theo chiều ngang. */
+#schedule tbody th[colspan] {
+    background: var(--primary-bg); /* Dùng biến màu nền để đồng bộ giao diện */
+    color: var(--primary-active); /* Đặt màu chữ */
+    font-weight: 600; /* Đặt độ đậm của chữ */
+}
+
+/* Chọn các ô bảng được gộp theo chiều dọc. */
+#schedule tbody td[rowspan] {
+    background: #f7f5f0; /* Đặt màu nền */
+    font-weight: 500; /* Đặt độ đậm của chữ */
+}
+
+/* Chọn các ô bảng được gộp theo chiều ngang. */
+#schedule tbody td[colspan] {
+    color: var(--muted); /* Đặt màu chữ */
+}
+
+/* Áp dụng khi người dùng rê chuột lên phần tử. */
+#schedule tbody tr:hover > td {
+    background: #f8eee7; /* Đặt màu nền */
+}
+
+/* Chọn phần tử cuối cùng trong nhóm tương ứng. */
+#schedule tbody:last-child tr:last-child td {
+    border-bottom: 0; /* Tạo hoặc bỏ đường viền dưới */
+}
+
+/* 04. Biểu mẫu đăng ký theo phong cách Ant Design */
+#register > h2 {
+    text-align: center; /* Căn nội dung chữ theo chiều ngang */
+    margin-bottom: 8px; /* Đặt khoảng cách bên dưới */
+}
+
+#register > p {
+    text-align: center; /* Căn nội dung chữ theo chiều ngang */
+    color: var(--muted); /* Đặt màu chữ */
+    margin-bottom: 28px; /* Đặt khoảng cách bên dưới */
+}
+
+#registration-form {
+    max-width: 680px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Đặt khoảng cách bên ngoài phần tử; auto giúp căn giữa khi có chiều rộng giới hạn */
+}
+
+#registration-form fieldset {
+    min-width: 0; /* Cho phép phần tử co nhỏ, tránh tràn do kích thước tối thiểu mặc định */
+    margin: 0 0 24px; /* Đặt khoảng cách bên ngoài phần tử; auto giúp căn giữa khi có chiều rộng giới hạn */
+    padding: 20px 24px 24px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    border: 1px solid var(--border); /* Đặt độ dày, kiểu và màu đường viền */
+    border-radius: var(--radius); /* Bo tròn các góc phần tử */
+}
+
+#registration-form legend {
+    padding: 0 8px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    font-size: 16px; /* Đặt kích thước chữ */
+    font-weight: 600; /* Đặt độ đậm của chữ */
+    color: var(--text); /* Đặt màu chữ */
+}
+
+#registration-form .form-group {
+    margin-bottom: 20px; /* Đặt khoảng cách bên dưới */
+}
+
+/* Chọn phần tử cuối cùng trong nhóm tương ứng. */
+#registration-form .form-group:last-child {
+    margin-bottom: 0; /* Đặt khoảng cách bên dưới */
+}
+
+#registration-form .form-group > label {
+    display: block; /* Hiển thị dạng khối, bắt đầu trên dòng riêng */
+    font-weight: 500; /* Đặt độ đậm của chữ */
+    margin-bottom: 8px; /* Đặt khoảng cách bên dưới */
+}
+
+/* Thêm dấu sao trước label của nhóm chứa input bắt buộc. */
+#registration-form .form-group:has(input[required]) > label::before {
+    content: "*"; /* Tạo nội dung cho pseudo-element, ở đây là dấu sao bắt buộc */
+    color: #ff4d4f; /* Đặt màu chữ */
+    margin-right: 5px; /* Đặt khoảng cách bên phải */
+}
+
+#registration-form input[type="text"], #registration-form input[type="email"], #registration-form input[type="password"] {
+    display: block; /* Hiển thị dạng khối, bắt đầu trên dòng riêng */
+    width: 100%; /* Chiếm toàn bộ chiều rộng khả dụng của phần tử cha */
+    min-height: 40px; /* Đặt chiều cao tối thiểu, vẫn cho phép nội dung mở rộng */
+    padding: 8px 12px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    color: var(--text); /* Đặt màu chữ */
+    background: #fff; /* Đặt màu nền */
+    border: 1px solid var(--border); /* Đặt độ dày, kiểu và màu đường viền */
+    border-radius: 6px; /* Bo tròn các góc phần tử */
+    font: inherit; /* Kế thừa các thuộc tính phông chữ từ phần tử cha */
+    transition: border-color .2s, box-shadow .2s; /* Tạo chuyển đổi mượt cho các thuộc tính được liệt kê */
+}
+
+/* Định dạng chữ gợi ý trong ô nhập. */
+#registration-form input::placeholder {
+    color: #8c8c8c; /* Đặt màu chữ */
+}
+
+/* Áp dụng khi người dùng rê chuột lên phần tử. */
+#registration-form input[type="text"]:hover, #registration-form input[type="email"]:hover, #registration-form input[type="password"]:hover {
+    border-color: var(--primary-hover); /* Thay đổi màu đường viền */
+}
+
+/* Áp dụng khi ô nhập nhận focus. */
+#registration-form input[type="text"]:focus, #registration-form input[type="email"]:focus, #registration-form input[type="password"]:focus {
+    border-color: var(--primary); /* Thay đổi màu đường viền */
+    box-shadow: 0 0 0 2px rgba(156,61,40,.16); /* Đặt hiệu ứng bóng đổ hoặc vòng sáng focus */
+    outline: none; /* Bỏ outline mặc định vì trạng thái focus đã có viền và bóng riêng */
+}
+
+#registration-form .form-options {
+    display: grid; /* Dùng CSS Grid để chia bố cục thành các cột */
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Xác định số cột và tỷ lệ chiều rộng trong CSS Grid */
+    gap: 14px 20px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+}
+
+#registration-form .form-options label {
+    display: flex; /* Dùng Flexbox để bố trí các phần tử con */
+    align-items: center; /* Căn các phần tử theo trục phụ của Flexbox */
+    gap: 8px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+    cursor: pointer; /* Thay đổi hình dạng con trỏ khi tương tác */
+}
+
+#registration-form input[type="radio"], #registration-form input[type="checkbox"] {
+    flex: 0 0 auto; /* Quy định khả năng co giãn và kích thước cơ sở của phần tử Flexbox */
+    width: 16px; /* Đặt chiều rộng phần tử */
+    height: 16px; /* Đặt chiều cao phần tử */
+    margin: 0; /* Bỏ khoảng cách ngoài mặc định */
+    accent-color: var(--primary); /* Đặt màu nhấn cho radio và checkbox gốc của trình duyệt */
+    cursor: pointer; /* Thay đổi hình dạng con trỏ khi tương tác */
+}
+
+#registration-form small {
+    display: block; /* Hiển thị dạng khối, bắt đầu trên dòng riêng */
+    color: var(--muted); /* Đặt màu chữ */
+    margin-top: 6px; /* Đặt khoảng cách bên trên */
+    font-size: 12px; /* Đặt kích thước chữ */
+}
+
+#registration-form button[type="submit"] {
+    width: 100%; /* Chiếm toàn bộ chiều rộng khả dụng của phần tử cha */
+    min-height: 44px; /* Đặt chiều cao tối thiểu, vẫn cho phép nội dung mở rộng */
+    padding: 10px 20px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    background: var(--primary); /* Dùng biến màu nền để đồng bộ giao diện */
+    color: #fff; /* Đặt màu chữ */
+    border: 1px solid transparent; /* Đặt độ dày, kiểu và màu đường viền */
+    border-radius: 6px; /* Bo tròn các góc phần tử */
+    font: inherit; /* Kế thừa các thuộc tính phông chữ từ phần tử cha */
+    font-weight: 600; /* Đặt độ đậm của chữ */
+    cursor: pointer; /* Thay đổi hình dạng con trỏ khi tương tác */
+    box-shadow: 0 2px 0 rgba(115,48,31,.08); /* Đặt hiệu ứng bóng đổ hoặc vòng sáng focus */
+    transition: background .2s; /* Tạo chuyển đổi mượt cho các thuộc tính được liệt kê */
+}
+
+/* Áp dụng khi người dùng rê chuột lên phần tử. */
+#registration-form button[type="submit"]:hover {
+    background: var(--primary-hover); /* Dùng biến màu nền để đồng bộ giao diện */
+}
+
+/* Áp dụng trong lúc người dùng nhấn nút. */
+#registration-form button[type="submit"]:active {
+    background: var(--primary-active); /* Dùng biến màu nền để đồng bộ giao diện */
+}
+
+/* Áp dụng khi nút bị vô hiệu hóa. */
+#registration-form button:disabled {
+    background: #f2efe8; /* Đặt màu nền */
+    color: #8c8c8c; /* Đặt màu chữ */
+    border-color: var(--border); /* Thay đổi màu đường viền */
+    cursor: not-allowed; /* Thay đổi hình dạng con trỏ khi tương tác */
+}
+
+#form-message {
+    white-space: pre-line; /* Giữ ký tự xuống dòng trong thông báo nhưng vẫn cho phép tự ngắt dòng */
+    overflow-wrap: anywhere; /* Cho phép ngắt chuỗi dài để tránh tràn khung */
+}
+
+/* Chỉ tạo khung thông báo khi có nội dung. */
+#form-message:not(:empty) {
+    padding: 12px 16px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    border-radius: 6px; /* Bo tròn các góc phần tử */
+    margin-bottom: 16px; /* Đặt khoảng cách bên dưới */
+}
+
+/* Hiển thị thông báo lỗi khi JavaScript gán class error. */
+#form-message.error {
+    color: #a8071a; /* Đặt màu chữ */
+    background: #fff2f0; /* Đặt màu nền */
+    border: 1px solid #ffccc7; /* Đặt độ dày, kiểu và màu đường viền */
+}
+
+/* Hiển thị thông báo thành công khi JavaScript gán class success. */
+#form-message.success {
+    color: #237804; /* Đặt màu chữ */
+    background: #f6ffed; /* Đặt màu nền */
+    border: 1px solid #b7eb8f; /* Đặt độ dày, kiểu và màu đường viền */
+}
+
+/* 05. Chân trang */
+/* Chỉ chọn footer là con trực tiếp của body. */
+body > footer {
+    background: #fff; /* Đặt màu nền */
+    border-top: 1px solid var(--line); /* Tạo hoặc bỏ đường viền trên */
+    padding: 40px 24px 20px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+}
+
+.footer-container {
+    max-width: 1160px; /* Giới hạn chiều rộng tối đa */
+    margin: auto; /* Đặt khoảng cách bên ngoài phần tử; auto giúp căn giữa khi có chiều rộng giới hạn */
+    display: grid; /* Dùng CSS Grid để chia bố cục thành các cột */
+    grid-template-columns: 1.4fr 1fr 1fr; /* Xác định số cột và tỷ lệ chiều rộng trong CSS Grid */
+    gap: 36px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+}
+
+.footer-container h2 {
+    color: var(--primary); /* Đặt màu chữ */
+    font-size: 24px; /* Đặt kích thước chữ */
+    margin-bottom: 8px; /* Đặt khoảng cách bên dưới */
+}
+
+.footer-container h3 {
+    font-size: 16px; /* Đặt kích thước chữ */
+    font-weight: 600; /* Đặt độ đậm của chữ */
+    margin-bottom: 12px; /* Đặt khoảng cách bên dưới */
+}
+
+.footer-container p, .footer-container a {
+    color: var(--muted); /* Đặt màu chữ */
+    overflow-wrap: anywhere; /* Cho phép ngắt chuỗi dài để tránh tràn khung */
+}
+
+/* Áp dụng khi người dùng rê chuột lên phần tử. */
+.footer-container a:hover {
+    color: var(--primary); /* Đặt màu chữ */
+}
+
+.footer-navigation ul {
+    list-style: none; /* Điều chỉnh dấu đầu dòng của danh sách */
+    padding: 0; /* Bỏ khoảng cách trong mặc định */
+    margin: 0; /* Bỏ khoảng cách ngoài mặc định */
+}
+
+.footer-navigation li {
+    margin-bottom: 8px; /* Đặt khoảng cách bên dưới */
+}
+
+.footer-contact address {
+    font-style: normal; /* Điều chỉnh kiểu chữ nghiêng */
+}
+
+.footer-contact p {
+    margin-bottom: 8px; /* Đặt khoảng cách bên dưới */
+}
+
+.footer-bottom {
+    max-width: 1160px; /* Giới hạn chiều rộng tối đa */
+    margin: 28px auto 0; /* Đặt khoảng cách bên ngoài phần tử; auto giúp căn giữa khi có chiều rộng giới hạn */
+    padding-top: 20px; /* Tạo khoảng trống bên trong phía trên */
+    border-top: 1px solid var(--line); /* Tạo hoặc bỏ đường viền trên */
+    text-align: center; /* Căn nội dung chữ theo chiều ngang */
+    font-size: 13px; /* Đặt kích thước chữ */
+    color: var(--muted); /* Đặt màu chữ */
+}
+
+.footer-bottom strong {
+    color: var(--primary); /* Đặt màu chữ */
+    font-weight: 600; /* Đặt độ đậm của chữ */
+}
+
+/* 06. Giao diện thích ứng với kích thước màn hình */
+/* Tablet và màn hình tối đa 768px. */
+@media (max-width: 768px) {
+    main {
+        width: calc(100% - 32px); /* Đặt chiều rộng phần tử */
+        margin-top: 20px; /* Đặt khoảng cách bên trên */
+    }
+
+    /* Chỉ định dạng các section cấp trực tiếp trong main. */
+    main > section {
+        padding: 24px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    }
+
+    #home {
+        padding: 32px 24px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    }
+
+    /* Chỉ chọn header là con trực tiếp của body. */
+    body > header {
+        padding: 0 16px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+        gap: 12px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+    }
+
+    header nav ul {
+        gap: 12px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr 1fr; /* Xác định số cột và tỷ lệ chiều rộng trong CSS Grid */
+        gap: 24px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+    }
+
+    .footer-about {
+        grid-column: 1 / -1; /* Cho phần tử chiếm các cột Grid được chỉ định */
+    }
+
+}
+
+/* Điện thoại và màn hình tối đa 480px. */
+@media (max-width: 480px) {
+    html {
+        scroll-padding-top: 16px; /* Chừa khoảng trên khi cuộn tới section, tránh bị header che */
+    }
+
+    /* Chỉ chọn header là con trực tiếp của body. */
+    body > header {
+        position: static; /* Đưa header về luồng bình thường, không bám khi cuộn */
+        flex-direction: column; /* Đổi hướng sắp xếp Flexbox */
+        padding: 14px 12px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+        gap: 6px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+    }
+
+    header nav ul {
+        flex-wrap: wrap; /* Cho phép các mục menu xuống dòng khi thiếu chỗ */
+        justify-content: center; /* Phân bố các phần tử theo trục chính của Flexbox */
+        gap: 8px 14px; /* Đặt khoảng cách giữa các phần tử Flexbox hoặc Grid */
+    }
+
+    header nav a {
+        padding: 8px 2px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    }
+
+    /* Chỉ định dạng các section cấp trực tiếp trong main. */
+    main > section {
+        padding: 16px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    }
+
+    #home {
+        padding: 28px 18px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    }
+
+    #registration-form fieldset {
+        padding: 16px; /* Đặt khoảng cách từ nội dung đến viền bên trong */
+    }
+
+    #registration-form .form-options {
+        grid-template-columns: 1fr; /* Xác định số cột và tỷ lệ chiều rộng trong CSS Grid */
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr; /* Xác định số cột và tỷ lệ chiều rộng trong CSS Grid */
+    }
+
+}
+
+/* Tôn trọng cài đặt giảm chuyển động của hệ điều hành. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto; /* Quy định cách cuộn tới liên kết neo */
+    }
+
+    *, *::before, *::after {
+        transition: none !important; /* Tắt hiệu ứng chuyển tiếp cho người dùng yêu cầu giảm chuyển động */
+    }
+
+}
+
+/* 07. Ghi đè giao diện: tạo bản sắc đỏ gạch và xanh rêu; các quy tắc cùng độ ưu tiên ở cuối sẽ thắng */
+body {
+    font-size: 15px; /* Đặt kích thước chữ */
+}
+
+/* Chỉ chọn header là con trực tiếp của body. */
+body > header {
+    background: #fdfbf6; /* Đặt màu nền */
+    border-bottom: 1px solid var(--border); /* Tạo hoặc bỏ đường viền dưới */
+}
+
+header h3 a {
+    color: #28372c; /* Đặt màu chữ */
+}
+
+/* Chỉ định dạng các section cấp trực tiếp trong main. */
+main > section {
+    border-color: var(--border); /* Thay đổi màu đường viền */
+}
+
+#home {
+    border: 1px solid #c9c2b4; /* Đặt độ dày, kiểu và màu đường viền */
+    border-left: 5px solid var(--primary); /* Tạo đường viền bên trái */
+}
+
+#home h1 {
+    font-family: Georgia, "Times New Roman", serif; /* Chọn họ phông chữ theo thứ tự ưu tiên */
+    font-weight: 700; /* Đặt độ đậm của chữ */
+    color: #28372c; /* Đặt màu chữ */
+    letter-spacing: -1.2px; /* Điều chỉnh khoảng cách giữa các ký tự */
+}
+
+#home > p {
+    color: var(--primary-active); /* Đặt màu chữ */
+}
+
+main > section > h2 {
+    letter-spacing: -.5px; /* Điều chỉnh khoảng cách giữa các ký tự */
+    color: #28372c; /* Đặt màu chữ */
+}
+
+#schedule thead th {
+    background: #28372c; /* Đặt màu nền */
+    color: #fff; /* Đặt màu chữ */
+}
+
+/* Chọn phần tử cuối cùng trong nhóm tương ứng. */
+#schedule thead th:not(:last-child) {
+    border-right-color: #465448; /* Thay đổi màu đường viền bên phải */
+}
+
+/* Chọn các ô bảng được gộp theo chiều ngang. */
+#schedule tbody th[colspan] {
+    border-top: 1px solid #d8c6b6; /* Tạo hoặc bỏ đường viền trên */
+}
+
+#registration-form legend {
+    color: #28372c; /* Đặt màu chữ */
+}
+
+/* Chỉ chọn footer là con trực tiếp của body. */
+body > footer {
+    background: #28372c; /* Đặt màu nền */
+    color: #e2e3d8; /* Đặt màu chữ */
+    border: 0; /* Bỏ đường viền hiện tại */
+}
+
+.footer-container h2 {
+    color: #f3c3a7; /* Đặt màu chữ */
+}
+
+.footer-container h3 {
+    color: #fff; /* Đặt màu chữ */
+}
+
+.footer-container p, .footer-container a, .footer-bottom {
+    color: #e2e3d8; /* Đặt màu chữ */
+}
+
+/* Áp dụng khi người dùng rê chuột lên phần tử. */
+.footer-container a:hover, .footer-bottom strong {
+    color: #f3c3a7; /* Đặt màu chữ */
+}
+
+.footer-bottom {
+    border-top-color: #526052; /* Thay đổi màu đường viền trên */
+}
+
+/* Thông báo lỗi bên dưới input */
+#registration-form .field-error {
+    display: block;
+    margin-top: 6px;
+    color: #b42318;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Ẩn thông báo khi trường hợp lệ */
+#registration-form .field-error[hidden] {
+    display: none;
+}
+
+/* Viền đỏ khi input không hợp lệ */
+#registration-form input[aria-invalid="true"] {
+    border-color: #b42318;
+}
+
+/* Hiệu ứng focus khi input có lỗi */
+#registration-form input[aria-invalid="true"]:focus {
+    border-color: #b42318;
+    outline-color: #b42318;
+    box-shadow: 0 0 0 2px rgba(180, 35, 24, 0.12);
+}
+
+/* Khung hiển thị chi tiết phí đăng ký */
+.fee-summary {
+    background-color: #eae5d9;
+    border: 1px solid #d4cbbb;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Tiêu đề bảng tính phí */
+.fee-summary h3 {
+    color: #28372c;
+    margin-bottom: 16px;
+}
+
+/* Căn tên khoản phí bên trái, số tiền bên phải */
+.fee-summary p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+/* Đường phân cách trước tổng phí */
+.fee-summary hr {
+    border: none;
+    border-top: 1px solid #c8c0af;
+    margin: 16px 0;
+}
+
+/* Tổng phí phải trả */
+.fee-summary .fee-total {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Làm nổi bật số tiền cuối cùng */
+#total-fee {
+    color: #9c3d28;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* Màu xanh cho khoản tiền được giảm */
+#discount-fee {
+    color: #166534;
+}
+
+/* Thông báo trạng thái mã khuyến mãi */
+#promo-message {
+    display: block;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+/* Mã khuyến mãi hợp lệ */
+#promo-message.success {
+    color: #166534;
+}
+
+/* Mã khuyến mãi không hợp lệ */
+#promo-message.field-error {
+    color: #b42318;
+}
