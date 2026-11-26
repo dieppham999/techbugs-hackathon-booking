@@ -659,3 +659,28 @@ body > footer {
     border-top-color: #526052; /* Thay đổi màu đường viền trên */
 }
 
+/* Thông báo lỗi bên dưới input */
+#registration-form .field-error {
+    display: block;
+    margin-top: 6px;
+    color: #b42318;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Ẩn thông báo khi trường hợp lệ */
+#registration-form .field-error[hidden] {
+    display: none;
+}
+
+/* Viền đỏ khi input không hợp lệ */
+#registration-form input[aria-invalid="true"] {
+    border-color: #b42318;
+}
+
+/* Hiệu ứng focus khi input có lỗi */
+#registration-form input[aria-invalid="true"]:focus {
+    border-color: #b42318;
+    outline-color: #b42318;
+    box-shadow: 0 0 0 2px rgba(180, 35, 24, 0.12);
+}
